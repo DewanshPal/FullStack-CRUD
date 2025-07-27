@@ -258,24 +258,24 @@ const Profile = () => {
               <div className="flex items-center space-x-3">
                 <User className="h-5 w-5 text-gray-400" />
                 <div>
-                  <p className="text-sm text-gray-600">Name</p>
-                  <p className="font-medium text-gray-900">{user?.username}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Name</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">{user?.username}</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-gray-400" />
                 <div>
-                  <p className="text-sm text-gray-600">Email</p>
-                  <p className="font-medium text-gray-900">{user?.email}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Email</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">{user?.email}</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
                 <Calendar className="h-5 w-5 text-gray-400" />
                 <div>
-                  <p className="text-sm text-gray-600">Member since</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Member since</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {formatDate(user?.createdAt)}
                   </p>
                 </div>
@@ -305,7 +305,7 @@ const Profile = () => {
           {isChangingPassword ? (
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
               <div>
-                <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
                   Old Password
                 </label>
                 <div className="relative">
@@ -336,7 +336,7 @@ const Profile = () => {
               </div>
 
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
                   New Password
                 </label>
                 <div className="relative">
@@ -367,7 +367,7 @@ const Profile = () => {
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
                   Confirm New Password
                 </label>
                 <div className="relative">
@@ -427,7 +427,7 @@ const Profile = () => {
               </div>
             </form>
           ) : (
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Keep your account secure by using a strong password and changing it regularly.
             </p>
           )}

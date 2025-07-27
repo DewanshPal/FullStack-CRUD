@@ -163,8 +163,8 @@ const Profile = () => {
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Profile</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
           Manage your account settings and preferences
         </p>
       </div>
@@ -173,7 +173,7 @@ const Profile = () => {
       <div className="card">
         <div className="card-header">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">Profile Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Profile Information</h3>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
@@ -189,7 +189,7 @@ const Profile = () => {
           {isEditing ? (
             <form onSubmit={handleProfileSubmit} className="space-y-4">
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Username
                 </label>
                 <input
@@ -202,12 +202,12 @@ const Profile = () => {
                   disabled={loading}
                 />
                 {errors.username && (
-                  <p className="mt-1 text-sm text-danger-600">{errors.username}</p>
+                  <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.username}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Email
                 </label>
                 <input
@@ -289,7 +289,7 @@ const Profile = () => {
       <div className="card">
         <div className="card-header">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">Change Password</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Change Password</h3>
             {!isChangingPassword && (
               <button
                 onClick={() => setIsChangingPassword(true)}

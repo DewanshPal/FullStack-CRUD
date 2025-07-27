@@ -9,10 +9,10 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
     return (
       <div className="card">
         <div className="card-header">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
         </div>
         <div className="card-content">
-          <p className="text-gray-500 text-center py-8">No tasks found</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">No tasks found</p>
         </div>
       </div>
     );
@@ -22,10 +22,10 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
     <div className="card">
       <div className="card-header">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
           <Link
             to="/tasks"
-            className="text-sm text-primary-600 hover:text-primary-700 flex items-center"
+            className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center"
           >
             View all
             <ArrowRight className="h-4 w-4 ml-1" />
@@ -35,9 +35,9 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
       <div className="card-content">
         <div className="space-y-3">
           {tasks.slice(0, 5).map((task) => (
-            <div key={task._id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div key={task._id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-medium text-gray-900 truncate">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {task.title}
                 </h4>
                 <div className="flex items-center space-x-2 mt-1">
@@ -48,7 +48,7 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
                     {task.priority || 'No Priority'}
                   </span>
                   {task.dueDate && (
-                    <div className="flex items-center text-xs text-gray-500">
+                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                       <Calendar className="h-3 w-3 mr-1" />
                       {formatDate(task.dueDate)}
                     </div>

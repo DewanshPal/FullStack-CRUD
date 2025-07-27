@@ -58,17 +58,17 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
   const getActivityIcon = (type) => {
     switch (type) {
       case 'task_created':
-        return <Plus className="h-4 w-4 text-success-600" />;
+        return <Plus className="h-4 w-4 text-success-600 dark:text-success-400" />;
       case 'task_updated':
-        return <Edit className="h-4 w-4 text-primary-600" />;
+        return <Edit className="h-4 w-4 text-primary-600 dark:text-primary-400" />;
       case 'task_deleted':
-        return <Trash2 className="h-4 w-4 text-danger-600" />;
+        return <Trash2 className="h-4 w-4 text-danger-600 dark:text-danger-400" />;
       case 'task_completed':
-        return <CheckCircle className="h-4 w-4 text-success-600" />;
+        return <CheckCircle className="h-4 w-4 text-success-600 dark:text-success-400" />;
       case 'user_login':
-        return <User className="h-4 w-4 text-primary-600" />;
+        return <User className="h-4 w-4 text-primary-600 dark:text-primary-400" />;
       default:
-        return <Clock className="h-4 w-4 text-gray-600" />;
+        return <Clock className="h-4 w-4 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -76,13 +76,13 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
     switch (type) {
       case 'task_created':
       case 'task_completed':
-        return 'border-success-200 bg-success-50';
+        return 'border-success-200 dark:border-success-800 bg-success-50 dark:bg-success-900/20';
       case 'task_updated':
-        return 'border-primary-200 bg-primary-50';
+        return 'border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-900/20';
       case 'task_deleted':
-        return 'border-danger-200 bg-danger-50';
+        return 'border-danger-200 dark:border-danger-800 bg-danger-50 dark:bg-danger-900/20';
       default:
-        return 'border-gray-200 bg-gray-50';
+        return 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800';
     }
   };
 
@@ -97,7 +97,7 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
   if (error) {
     return (
       <div className="text-center py-8">
-        <p className="text-danger-600 mb-4">{error}</p>
+        <p className="text-danger-600 dark:text-danger-400 mb-4">{error}</p>
         <button onClick={fetchActivities} className="btn-primary">
           <RefreshCw className="h-4 w-4 mr-2" />
           Retry
@@ -111,10 +111,10 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
       {showHeader && (
         <div className="card-header">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">Activity Feed</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Activity Feed</h3>
             <button
               onClick={fetchActivities}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <RefreshCw className="h-4 w-4" />
             </button>
@@ -124,7 +124,7 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
       
       <div className={showHeader ? 'card-content' : ''}>
         {activities.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">No activities yet</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">No activities yet</p>
         ) : (
           <div className="space-y-3">
             {activities.map((activity) => (
@@ -136,10 +136,10 @@ const ActivityFeed = ({ limit, showHeader = true }) => {
                   {getActivityIcon(activity.type)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-900">
+                  <p className="text-sm text-gray-900 dark:text-white">
                     {activity.description}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {formatTimeAgo(activity.createdAt)}
                   </p>
                 </div>

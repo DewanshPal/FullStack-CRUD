@@ -16,7 +16,7 @@ export const getStatusColor = (status) => {
     case TASK_STATUS.TODO:
       return 'bg-gray-100 text-gray-800';
     case TASK_STATUS.IN_PROGRESS:
-      return 'bg-primary-100 text-primary-800';
+      return 'bg-primary-100 dark:bg-primary-900/20 text-[#1e40af] dark:text-[#1e40af]';
     case TASK_STATUS.COMPLETED:
       return 'bg-success-100 text-success-800';
     default:
@@ -35,7 +35,7 @@ export const getPriorityColor = (priority) => {
     case TASK_PRIORITY.URGENT:
       return 'bg-violet-100 text-violet-800 border border-violet-300';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-gray-100 text-gray-800 border border-gray-300';
   }
 };
 

@@ -68,20 +68,20 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               {getGreeting()}, {capitalizeFirstLetter(user?.username)}!
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               Here's what's happening with your tasks today.
             </p>
           </div>
           {/* Debug button - remove in production */}
           <button 
             onClick={refreshStats}
-            className="px-3 py-1 text-xs bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors"
+            className="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
             title="Refresh stats"
           >
             🔄 Refresh Stats
@@ -121,7 +121,7 @@ const Dashboard = () => {
       {taskStats && taskStats.total > 0 && (
         <div className="card">
           <div className="card-header">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
               <TrendingUp className="h-5 w-5 mr-2" />
               Progress Overview
             </h3>
@@ -129,11 +129,11 @@ const Dashboard = () => {
           <div className="card-content">
             <div className="space-y-4">
               <div>
-                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
                   <span>Overall Progress</span>
                   <span>{Math.round((taskStats.completed / taskStats.total) * 100)}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div
                     className="bg-success-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${(taskStats.completed / taskStats.total) * 100}%` }}
@@ -143,16 +143,16 @@ const Dashboard = () => {
               
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">{taskStats.pending || 0}</p>
-                  <p className="text-sm text-gray-600">Pending</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{taskStats.pending || 0}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Pending</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-warning-600">{taskStats.inProgress || 0}</p>
-                  <p className="text-sm text-gray-600">In Progress</p>
+                  <p className="text-2xl font-bold text-warning-600 dark:text-warning-400">{taskStats.inProgress || 0}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">In Progress</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-success-600">{taskStats.completed || 0}</p>
-                  <p className="text-sm text-gray-600">Completed</p>
+                  <p className="text-2xl font-bold text-success-600 dark:text-success-400">{taskStats.completed || 0}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Completed</p>
                 </div>
               </div>
             </div>

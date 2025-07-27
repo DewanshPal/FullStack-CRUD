@@ -39,13 +39,13 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
         />
         
         {/* Modal */}
-        <div className={`relative w-full ${sizeClasses[size]} transform rounded-lg bg-white shadow-xl transition-all animate-slide-up`}>
+        <div className={`relative w-full ${sizeClasses[size]} transform rounded-lg bg-white dark:bg-gray-800 shadow-xl transition-all animate-slide-up`}>
           {/* Header */}
-          <div className="flex items-center justify-between border-b p-6">
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <div className="flex items-center justify-between border-b dark:border-gray-700 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
             <button
               onClick={onClose}
-              className="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+              className="rounded-md p-1 text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <X className="h-5 w-5" />
             </button>

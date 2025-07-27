@@ -20,13 +20,13 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
   const getDueDateColor = () => {
     switch (dueDateStatus) {
       case 'overdue':
-        return 'text-danger-600';
+        return 'text-danger-600 dark:text-danger-400';
       case 'today':
-        return 'text-warning-600';
+        return 'text-warning-600 dark:text-warning-400';
       case 'tomorrow':
-        return 'text-primary-600';
+        return 'text-primary-600 dark:text-primary-400';
       default:
-        return 'text-gray-500';
+        return 'text-gray-500 dark:text-gray-400';
     }
   };
 
@@ -46,10 +46,10 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
               {/* Status Toggle */}
               <button
                 onClick={handleStatusToggle}
-                className="mt-1 text-gray-400 hover:text-primary-600 transition-colors"
+                className="mt-1 text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 {task.status === TASK_STATUS.COMPLETED ? (
-                  <CheckCircle className="h-5 w-5 text-success-600" />
+                  <CheckCircle className="h-5 w-5 text-success-600 dark:text-success-400" />
                 ) : (
                   <Circle className="h-5 w-5" />
                 )}
@@ -59,14 +59,14 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
               <div className="flex-1 min-w-0">
                 <h3 className={`text-lg font-medium ${
                   task.status === TASK_STATUS.COMPLETED 
-                    ? 'line-through text-gray-500' 
-                    : 'text-gray-900'
+                    ? 'line-through text-gray-500 dark:text-gray-400' 
+                    : 'text-gray-900 dark:text-white'
                 }`}>
                   {task.title}
                 </h3>
                 
                 {task.description && (
-                  <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                     {task.description}
                   </p>
                 )}
@@ -95,7 +95,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
                   )}
 
                   {/* Created Date */}
-                  <div className="flex items-center text-xs text-gray-400">
+                  <div className="flex items-center text-xs text-gray-400 dark:text-gray-500">
                     <Clock className="h-3 w-3 mr-1" />
                     Created {formatDate(task.createdAt)}
                   </div>
@@ -107,13 +107,13 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
             <div className="flex items-center space-x-2 ml-4">
               <button
                 onClick={() => onEdit(task)}
-                className="p-1 text-gray-400 hover:text-primary-600 transition-colors"
+                className="p-1 text-gray-400 dark:text-gray-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <Edit className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="p-1 text-gray-400 hover:text-danger-600 transition-colors"
+                className="p-1 text-gray-400 dark:text-gray-500 hover:text-danger-600 dark:hover:text-danger-400 transition-colors"
               >
                 <Trash2 className="h-4 w-4" />
               </button>

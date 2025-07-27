@@ -10,17 +10,17 @@ const TaskFilters = ({ filters, onFiltersChange, onClearFilters }) => {
   const hasActiveFilters = filters.status || filters.priority || filters.search;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
-          <Filter className="h-5 w-5 text-gray-500" />
-          <h3 className="text-lg font-medium text-gray-900">Filters</h3>
+          <Filter className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white">Filters</h3>
         </div>
         
         {hasActiveFilters && (
           <button
             onClick={onClearFilters}
-            className="text-sm text-primary-600 hover:text-primary-700"
+            className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
           >
             Clear all
           </button>
@@ -30,7 +30,7 @@ const TaskFilters = ({ filters, onFiltersChange, onClearFilters }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="Search tasks..."

@@ -3,9 +3,10 @@ import { taskService } from './taskService';
 import { TASK_STATUS, TASK_PRIORITY } from '../utils/taskUtils';
 
 // Initialize Gemini AI with new @google/genai package
-// console.log(import.meta.env.example.VITE_GEMINI_API_KEY)
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyD5SGlWvLV44raPg-Jbepk8P_Wz54OeEK4"
+  apiKey: apiKey
 });
 
 class AIService {

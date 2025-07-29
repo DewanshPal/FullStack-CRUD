@@ -4,6 +4,7 @@ import { useTask } from '../context/TaskContext';
 import StatsCard from '../components/dashboard/StatsCard';
 import RecentTasks from '../components/dashboard/RecentTasks';
 import ActivityFeed from '../components/activities/ActivityFeed';
+import SmartSuggestions from '../components/ai/SmartSuggestions';
 import { 
   CheckSquare, 
   Clock, 
@@ -161,20 +162,28 @@ const Dashboard = () => {
       )}
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Upcoming Tasks */}
-        <RecentTasks 
-          tasks={upcomingTasks} 
-          title={
-            <div className="flex items-center">
-              <Calendar className="h-5 w-5 mr-2" />
-              Upcoming Tasks
-            </div>
-          }
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column - Tasks */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Upcoming Tasks */}
+          <RecentTasks 
+            tasks={upcomingTasks} 
+            title={
+              <div className="flex items-center">
+                <Calendar className="h-5 w-5 mr-2" />
+                Upcoming Tasks
+              </div>
+            }
+          />
 
-        {/* Recent Tasks */}
-        <RecentTasks tasks={recentTasks} />
+          {/* Recent Tasks */}
+          <RecentTasks tasks={recentTasks} />
+        </div>
+
+        {/* Right Column - AI Suggestions */}
+        <div className="space-y-6">
+          <SmartSuggestions />
+        </div>
       </div>
 
       {/* Activity Feed */}

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTask } from '../context/TaskContext';
 import TaskCard from '../components/tasks/TaskCard';
+import AnimatedTaskList from '../components/common/AnimatedTaskList';
 import TaskForm from '../components/tasks/TaskForm';
 import TaskFilters from '../components/tasks/TaskFilters';
 import Modal from '../components/common/Modal';
@@ -147,17 +149,18 @@ const Tasks = () => {
           )}
         </div>
       ) : (
-        <div className="space-y-4">
-          {filteredTasks.map((task) => (
+        <AnimatedTaskList>
+          {filteredTasks.map((task, index) => (
             <TaskCard
               key={task._id}
               task={task}
+              index={index}
               onEdit={handleEditTask}
               onDelete={handleDeleteTask}
               onStatusChange={handleStatusChange}
             />
           ))}
-        </div>
+        </AnimatedTaskList>
       )}
 
       {/* Create Task Modal */}

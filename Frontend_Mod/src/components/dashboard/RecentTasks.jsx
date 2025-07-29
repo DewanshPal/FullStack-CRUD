@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { formatDate } from '../../utils/dateUtils';
@@ -34,8 +35,22 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
       </div>
       <div className="card-content">
         <div className="space-y-3">
-          {tasks.slice(0, 5).map((task) => (
-            <div key={task._id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <AnimatePresence mode="popLayout">
+            {tasks.slice(0, 5).map((task, index) => (
+              <motion.div 
+                key={task._id} 
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20, scale: 0.95 }}
+                transition={{ 
+                  duration: 0.3,
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+                whileHover={{ x: 5 }}
+                layout
+              >
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {task.title}
@@ -55,8 +70,9 @@ const RecentTasks = ({ tasks, title = "Recent Tasks" }) => {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
+          </AnimatePresence>
         </div>
       </div>
     </div>

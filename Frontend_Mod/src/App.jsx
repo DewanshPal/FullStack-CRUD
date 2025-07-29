@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { AIProvider } from './context/AIContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Layout from './components/layout/Layout';
 
@@ -32,7 +33,9 @@ function App() {
               element={
                 <ProtectedRoute>
                   <TaskProvider>
-                    <Layout />
+                    <AIProvider>
+                      <Layout />
+                    </AIProvider>
                   </TaskProvider>
                 </ProtectedRoute>
               }

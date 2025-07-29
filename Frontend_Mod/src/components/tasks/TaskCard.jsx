@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
   Calendar, 
   Clock, 
@@ -12,8 +13,9 @@ import { formatDate, getDueDateStatus } from '../../utils/dateUtils';
 import { getStatusColor, getPriorityColor, TASK_STATUS } from '../../utils/taskUtils';
 import ConfirmDialog from '../common/ConfirmDialog';
 
-const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
+const TaskCard = ({ task, onEdit, onDelete, onStatusChange, index = 0 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const dueDateStatus = getDueDateStatus(task.dueDate, task.status);
   
@@ -37,9 +39,71 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
     onStatusChange(task._id, newStatus);
   };
 
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    // Add a small delay to show the animation
+    setTimeout(() => {
+      onDelete(task._id);
+    }, 200);
+  };
+
+  // Animation variants
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50, 
+      scale: 0.9,
+      rotateX: -15
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20, 
+      scale: 0.9,
+      rotateX: 15,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const hoverVariants = {
+    hover: { 
+      y: -8,
+      scale: 1.02,
+      rotateX: 5,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <>
-      <div className="card hover:shadow-md transition-shadow pt-5">
+      <motion.div 
+        className={`card hover:shadow-lg transition-shadow pt-5 ${isDeleting ? 'pointer-events-none' : ''}`}
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        whileHover="hover"
+        layout
+        style={{
+          transformPerspective: 1000,
+        }}
+      >
         <div className="card-content">
           <div className="flex items-start justify-between">
             <div className="flex items-start space-x-3 flex-1">
@@ -120,12 +184,12 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <ConfirmDialog
         isOpen={showDeleteConfirm}
         onClose={() => setShowDeleteConfirm(false)}
-        onConfirm={() => onDelete(task._id)}
+        onConfirm={handleDelete}
         title="Delete Task"
         message={`Are you sure you want to delete "${task.title}"? This action cannot be undone.`}
         confirmText="Delete"

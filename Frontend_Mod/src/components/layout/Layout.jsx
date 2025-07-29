@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import AIChat from '../ai/AIChat';
+import VoiceIndicator from '../ai/VoiceIndicator';
 import { Toaster } from 'react-hot-toast';
 
 const Layout = ({ children }) => {
-  
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
@@ -12,6 +15,14 @@ const Layout = ({ children }) => {
         <Outlet />
         {children}
       </main>
+      
+      {/* AI Components */}
+      <VoiceIndicator />
+      <AIChat 
+        isOpen={isAIChatOpen} 
+        onToggle={() => setIsAIChatOpen(!isAIChatOpen)} 
+      />
+      
       <Toaster
         position="top-right"
         toastOptions={{

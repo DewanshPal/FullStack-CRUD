@@ -18,4 +18,10 @@ export const activityService = {
     const response = await axiosInstance.get(`/activities/${userId}?limit=${limit}`);
     return response.data;
   },
+
+  // Log an activity
+  logActivity: async (activityData) => {
+    const response = await axiosInstance.post('/activities/log', activityData);
+    return response.data;
+  },
 };

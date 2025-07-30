@@ -60,7 +60,6 @@ const calculateStatsFromTasks = (tasks) => {
   console.log('📊 Calculated stats:', stats);
   return stats;
 };
-import { logActivity } from '../../../Backend/src/controllers/activity.controller';
 
 const TaskContext = createContext();
 

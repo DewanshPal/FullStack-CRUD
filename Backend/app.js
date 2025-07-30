@@ -10,10 +10,10 @@ const app = express();
 
 //middleware
 
-console.log(process.env.CORS);
+// console.log(process.env.CORS);
 app.use(cors(
     {
-        origin : "http://localhost:5173",
+        origin : "https://full-stack-crud-hudg-2wv7c29an-dewanshpals-projects.vercel.app",
         credentials: true //allows cookies
     }
 ));

@@ -13,7 +13,7 @@ const app = express();
 // console.log(process.env.CORS);
 app.use(cors(
     {
-        origin : "https://full-stack-crud-hudg-2wv7c29an-dewanshpals-projects.vercel.app",
+        origin : "https://full-stack-crud-hudg-rf1mh40px-dewanshpals-projects.vercel.app",
         credentials: true //allows cookies
     }
 ));

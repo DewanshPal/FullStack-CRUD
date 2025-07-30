@@ -13,7 +13,7 @@ const server  = http.createServer(app);
 
 const io  = new Server(server,{
     cors: {
-        origin:"https://full-stack-crud-hudg-2wv7c29an-dewanshpals-projects.vercel.app",//frontend
+        origin:"https://full-stack-crud-hudg-rf1mh40px-dewanshpals-projects.vercel.app",//frontend
         methods: ["GET","POST", "PUT", "DELETE"],
         credentials:true
     },

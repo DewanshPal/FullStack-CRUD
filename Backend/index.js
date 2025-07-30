@@ -13,7 +13,7 @@ const server  = http.createServer(app);
 
 const io  = new Server(server,{
     cors: {
-        origin:"https://full-stack-crud-hudg-rf1mh40px-dewanshpals-projects.vercel.app",//frontend
+        origin: `${process.env.FRONTEND_ORIGIN}`, // Use env variable or fallback
         methods: ["GET","POST", "PUT", "DELETE"],
         credentials:true
     },

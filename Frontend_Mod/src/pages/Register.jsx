@@ -91,20 +91,20 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <div className="flex justify-center">
-            <CheckSquare className="h-12 w-12 text-primary-600" />
+            <CheckSquare className="h-12 w-12 text-primary-600 dark:text-primary-400" />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
             Or{' '}
             <Link
               to="/login"
-              className="font-medium text-primary-600 hover:text-primary-500"
+              className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
             >
               sign in to your existing account
             </Link>
@@ -114,7 +114,7 @@ const Register = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Username
               </label>
               <input
@@ -124,17 +124,19 @@ const Register = () => {
                 autoComplete="username"
                 value={formData.username}
                 onChange={handleChange}
-                className={`input mt-1 ${errors.username ? 'border-danger-500' : ''}`}
+                className={`input mt-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white ${
+                  errors.username ? 'border-danger-500 dark:border-danger-500' : ''
+                }`}
                 placeholder="Enter your full name"
                 disabled={loading}
               />
               {errors.username && (
-                <p className="mt-1 text-sm text-danger-600">{errors.username}</p>
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.username}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email address
               </label>
               <input
@@ -144,17 +146,19 @@ const Register = () => {
                 autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`input mt-1 ${errors.email ? 'border-danger-500' : ''}`}
+                className={`input mt-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white ${
+                  errors.email ? 'border-danger-500 dark:border-danger-500' : ''
+                }`}
                 placeholder="Enter your email"
                 disabled={loading}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-danger-600">{errors.email}</p>
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.email}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -165,7 +169,9 @@ const Register = () => {
                   autoComplete="new-password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`input pr-10 ${errors.password ? 'border-danger-500' : ''}`}
+                  className={`input pr-10 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white ${
+                    errors.password ? 'border-danger-500 dark:border-danger-500' : ''
+                  }`}
                   placeholder="Enter your password"
                   disabled={loading}
                 />
@@ -175,19 +181,19 @@ const Register = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-gray-400" />
+                    <EyeOff className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                   ) : (
-                    <Eye className="h-4 w-4 text-gray-400" />
+                    <Eye className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                   )}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-danger-600">{errors.password}</p>
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.password}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="profession" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="profession" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Profession
               </label>
               <input
@@ -197,7 +203,9 @@ const Register = () => {
                 autoComplete="organization-title"
                 value={formData.profession}
                 onChange={handleChange}
-                className={`input mt-1 ${errors.profession ? 'border-danger-500' : ''}`}
+                className={`input mt-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white ${
+                  errors.profession ? 'border-danger-500 dark:border-danger-500' : ''
+                }`}
                 placeholder="Enter your Profession"
                 disabled={loading}
               />

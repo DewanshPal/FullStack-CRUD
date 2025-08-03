@@ -15,6 +15,7 @@ export const taskService = {
 
   // Delete a task
   deleteTask: async (taskId) => {
+    // console.log('Deleting task with ID:', taskId);
     const response = await axiosInstance.delete(`/tasks/dt/${taskId}`);
     return response.data;
   },

@@ -3,7 +3,7 @@ import { aiService } from '../services/aiService';
 import { voiceService } from '../services/voiceService';
 import { useTask } from './TaskContext';
 import { useAuth } from './AuthContext';
-import toast from 'react-hot-toast';
+import { useNotification } from './NotificationContext';
 
 const AIContext = createContext();
 
@@ -65,6 +65,7 @@ export const AIProvider = ({ children }) => {
   const [state, dispatch] = useReducer(aiReducer, initialState);
   const { tasks, createTask, updateTask, deleteTask } = useTask();
   const { user } = useAuth();
+  const notify = useNotification();
 
   // Initialize voice service
   useEffect(() => {
@@ -73,7 +74,7 @@ export const AIProvider = ({ children }) => {
       voiceService.onEnd = () => dispatch({ type: 'SET_LISTENING', payload: false });
       voiceService.onError = (error) => {
         dispatch({ type: 'SET_LISTENING', payload: false });
-        toast.error(`Voice recognition error: ${error}`);
+        notify.error(`Voice recognition error: ${error}`);
       };
       voiceService.onResult = handleVoiceResult;
     } else {
@@ -90,6 +91,7 @@ export const AIProvider = ({ children }) => {
 
   const handleVoiceResult = async (transcript) => {
     console.log('Voice input received:', transcript);
+    console.log('Current tasks:', tasks);
     
     addChatMessage({
       type: 'user',
@@ -180,7 +182,7 @@ export const AIProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Voice command execution error:', error);
-      toast.error('Failed to execute voice command');
+      notify.error('Failed to execute voice command');
       speak('Sorry, I encountered an error executing your command.');
     } finally {
       dispatch({ type: 'SET_PROCESSING', payload: false });
@@ -191,8 +193,20 @@ export const AIProvider = ({ children }) => {
     dispatch({ type: 'SET_AI_THINKING', payload: true });
 
     try {
+      console.log('Processing AI command:', userInput);
       const aiResponse = await aiService.processCommand(userInput, tasks);
+      console.log('AI Response:', aiResponse);
       
+      if (aiResponse.action === 'delete' && !aiResponse.parameters?.taskId) {
+        // If it's a delete action but no taskId, try to find the task
+        const taskTitle = aiResponse.parameters?.title || aiResponse.parameters?.taskTitle;
+        if (taskTitle) {
+          const task = findTaskByTitle(taskTitle);
+          if (task) {
+            aiResponse.parameters.taskId = task._id;
+          }
+        }
+      }
       addChatMessage({
         type: 'ai',
         content: aiResponse.message,
@@ -218,7 +232,7 @@ export const AIProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('AI processing error:', error);
-      toast.error('Failed to process AI command');
+      notify.error('Failed to process AI command');
       
       addChatMessage({
         type: 'ai',
@@ -233,7 +247,10 @@ export const AIProvider = ({ children }) => {
 
   const executeAIAction = async (aiResponse) => {
     try {
+      console.log('Executing AI action:', aiResponse);
+      console.log('Available tasks:', tasks);
       const result = await aiService.executeTaskOperation(aiResponse, tasks);
+      console.log('Task operation result:', result);
       
       if (result.success) {
         addChatMessage({
@@ -262,27 +279,31 @@ export const AIProvider = ({ children }) => {
   };
 
   const confirmPendingAction = async () => {
-    if (!state.pendingConfirmation) return;
+    if (!state.pendingConfirmation) {
+      console.warn('No pending confirmation found');
+      return;
+    }
 
     const { type, data, taskId, aiResponse } = state.pendingConfirmation;
+    console.log('Confirming action:', { type, data, taskId, aiResponse });
 
     try {
       switch (type) {
         case 'create':
           await createTask(data);
-          toast.success('Task created successfully!');
+          notify.success('Task created successfully!');
           speak('Task created successfully.');
           break;
 
         case 'update':
           await updateTask(taskId, data);
-          toast.success('Task updated successfully!');
+          notify.success('Task updated successfully!');
           speak('Task updated successfully.');
           break;
 
         case 'delete':
           await deleteTask(taskId);
-          toast.success('Task deleted successfully!');
+          notify.success('Task deleted successfully!');
           speak('Task deleted successfully.');
           break;
 
@@ -293,7 +314,7 @@ export const AIProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Confirmation action error:', error);
-      toast.error('Failed to execute action');
+      notify.error('Failed to execute action');
       speak('Failed to execute action.');
     } finally {
       dispatch({ type: 'SET_PENDING_CONFIRMATION', payload: null });
@@ -315,7 +336,7 @@ export const AIProvider = ({ children }) => {
 
   const startVoiceListening = () => {
     if (!voiceService.isSpeechRecognitionSupported()) {
-      toast.error('Speech recognition is not supported in your browser');
+      notify.error('Speech recognition is not supported in your browser');
       return;
     }
 
@@ -323,7 +344,7 @@ export const AIProvider = ({ children }) => {
       voiceService.startListening();
     } catch (error) {
       console.error('Failed to start voice listening:', error);
-      toast.error('Failed to start voice recognition');
+      notify.error('Failed to start voice recognition');
     }
   };
 
@@ -361,9 +382,20 @@ export const AIProvider = ({ children }) => {
   };
 
   const findTaskByTitle = (searchTitle) => {
-    return tasks.find(task => 
+    console.log('Searching for task with title:', searchTitle);
+    console.log('Available tasks:', tasks);
+    
+    if (!searchTitle) {
+      console.warn('No search title provided to findTaskByTitle');
+      return null;
+    }
+
+    const foundTask = tasks.find(task => 
       task.title.toLowerCase().includes(searchTitle.toLowerCase())
     );
+
+    console.log('Found task:', foundTask);
+    return foundTask;
   };
 
   const toggleVoice = () => {

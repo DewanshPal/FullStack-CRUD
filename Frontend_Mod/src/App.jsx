@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { AIProvider } from './context/AIContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Layout from './components/layout/Layout';
 
@@ -14,6 +15,7 @@ import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Activities from './pages/Activities';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 function App() {
   console.log('App component rendering');
@@ -22,7 +24,8 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <Routes>
+          <NotificationProvider>
+            <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -46,7 +49,11 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route index element={<Navigate to="/dashboard" replace />} />
             </Route>
+
+            {/* Catch all other routes - 404 Page */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
+          </NotificationProvider>
         </Router>
       </AuthProvider>
     </ThemeProvider>

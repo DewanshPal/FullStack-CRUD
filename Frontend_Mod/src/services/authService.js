@@ -23,7 +23,9 @@ export const authService = {
   // Logout user
   logout: async () => {
     try {
-      await axiosInstance.post('/auth/logout');
+      await axiosInstance.post('/auth/logout', {}, { withCredentials: true });
+    } catch (error) {
+      console.error('Logout error:', error);
     } finally {
       console.log('Logging out...');
       localStorage.removeItem('token');

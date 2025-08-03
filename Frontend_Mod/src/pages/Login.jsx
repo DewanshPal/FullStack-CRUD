@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { CheckSquare, Eye, EyeOff, Sun, Moon } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useNotification } from '../context/NotificationContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ const Login = () => {
 
   const { login, loading, error, isAuthenticated, clearError } = useAuth();
   const { darkMode, toggleDarkMode } = useTheme();
+  const notify = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,7 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      notify.error(error);
       clearError();
     }
   }, [error, clearError]);
@@ -59,7 +60,7 @@ const Login = () => {
 
     try {
       await login(formData);
-      toast.success('Login successful!');
+      notify.success('Login successful!');
       navigate(from, { replace: true });
     } catch (err) {
       // Error is handled by context and useEffect

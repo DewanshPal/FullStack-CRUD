@@ -3,10 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authService';
 import { User, Mail, Calendar, Edit, Save, X, Eye, EyeOff } from 'lucide-react';
 import { formatDate } from '../utils/dateUtils';
-import toast from 'react-hot-toast';
+import { useNotification } from '../context/NotificationContext';
 
 const Profile = () => {
-  const { user, updateProfile } = useAuth();
+    const { user, updateUserDetails, changePassword } = useAuth();
+  const notify = useNotification();
   console.log('user:', user);
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -82,9 +83,9 @@ const Profile = () => {
       setLoading(true);
       await updateProfile(profileData);
       setIsEditing(false);
-      toast.success('Profile updated successfully!');
+      notify.success('Profile updated successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update profile');
+      notify.error(error.response?.data?.message || 'Failed to update profile');
     } finally {
       setLoading(false);
     }
@@ -110,9 +111,9 @@ const Profile = () => {
         newPassword: '',
         confirmPassword: '',
       });
-      toast.success('Password changed successfully!');
+      notify.success('Password changed successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to change password');
+      notify.error(error.response?.data?.message || 'Failed to change password');
     } finally {
       setLoading(false);
     }

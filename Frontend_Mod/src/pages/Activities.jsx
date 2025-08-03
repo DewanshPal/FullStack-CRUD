@@ -4,10 +4,11 @@ import { activityService } from '../services/activityService';
 import ActivityFeed from '../components/activities/ActivityFeed';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 import { Trash2, RefreshCw } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useNotification } from '../context/NotificationContext';
 
 const Activities = () => {
   const { user } = useAuth();
+  const notify = useNotification();
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [clearing, setClearing] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -16,10 +17,10 @@ const Activities = () => {
     try {
       setClearing(true);
       await activityService.clearActivities(user._id);
-      toast.success('Activities cleared successfully!');
+      notify.success('Activities cleared successfully!');
       setRefreshKey(prev => prev + 1); // Force refresh of ActivityFeed
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to clear activities');
+      notify.error(error.response?.data?.message || 'Failed to clear activities');
     } finally {
       setClearing(false);
     }

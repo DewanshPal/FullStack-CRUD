@@ -8,10 +8,11 @@ import TaskFilters from '../components/tasks/TaskFilters';
 import Modal from '../components/common/Modal';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { Plus, RefreshCw } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useNotification } from '../context/NotificationContext';
 import { filterTasks } from '../utils/taskUtils';
 
 const Tasks = () => {
+  const notify = useNotification();
   const {
     tasks,
     loading,
@@ -35,9 +36,9 @@ const Tasks = () => {
       setFormLoading(true);
       await createTask(taskData);
       setIsCreateModalOpen(false);
-      toast.success('Task created successfully!');
+      notify.success('Task created successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to create task');
+      notify.error(error.response?.data?.message || 'Failed to create task');
     } finally {
       setFormLoading(false);
     }
@@ -49,9 +50,9 @@ const Tasks = () => {
       await updateTask(editingTask._id, taskData);
       setIsEditModalOpen(false);
       setEditingTask(null);
-      toast.success('Task updated successfully!');
+      notify.success('Task updated successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update task');
+      notify.error(error.response?.data?.message || 'Failed to update task');
     } finally {
       setFormLoading(false);
     }
@@ -60,9 +61,9 @@ const Tasks = () => {
   const handleDeleteTask = async (taskId) => {
     try {
       await deleteTask(taskId);
-      toast.success('Task deleted successfully!');
+      notify.success('Task deleted successfully!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to delete task');
+      notify.error(error.response?.data?.message || 'Failed to delete task');
     }
   };
 
@@ -74,9 +75,9 @@ const Tasks = () => {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       await updateTask(taskId, { status: newStatus });
-      toast.success('Task status updated!');
+      notify.success('Task status updated!');
     } catch (error) {
-      toast.error('Failed to update task status');
+      notify.error('Failed to update task status');
     }
   };
 

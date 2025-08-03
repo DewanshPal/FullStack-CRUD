@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { CheckSquare, Eye, EyeOff } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useNotification } from '../context/NotificationContext';
 
 const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    profession: '',
+    profession: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
   const { register, loading, error, isAuthenticated, clearError } = useAuth();
+  const notify = useNotification();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,14 +25,9 @@ const Register = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {const initialState = {
-    user: null,
-    isAuthenticated: false,
-    loading: true,
-    error: null,
-  };
+  useEffect(() => {
     if (error) {
-      toast.error(error);
+      notify.error(error);
       clearError();
     }
   }, [error, clearError]);
@@ -65,19 +61,19 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!validateForm()) {
+      console.log("Form validation failed:");
       return;
     }
 
     try {
       await register({
-        username: formData.name.trim(),
+        username: formData.username.trim(),
         email: formData.email,
         password: formData.password,
         profession: formData.profession.trim()
       });
-      toast.success('Registration successful!');
+      notify.success('Registration successful!');
       navigate('/dashboard', { replace: true });
     } catch (err) {
       // Error is handled by context and useEffect
@@ -197,8 +193,8 @@ const Register = () => {
               <input
                 id="profession"
                 name="profession"
-                type="profession"
-                autoComplete="profession"
+                type="text"
+                autoComplete="organization-title"
                 value={formData.profession}
                 onChange={handleChange}
                 className={`input mt-1 ${errors.profession ? 'border-danger-500' : ''}`}
